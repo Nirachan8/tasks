@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Task Game</title>
+    <style>
+    body {
+      background: #ccc;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+      .mystyle1 {
+        background-color: red;
+        color: #fff;
+      }
+      .mystyle2 {
+        background-color: blue;
+        color: #fff;
+      }
+      .table {
+        border: 1px solid #000;
+        background: #fff;
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .table td {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        padding: 25px;
+      }
+      .search {
+        text-align: center;
+      }
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      .search input {
+        padding: 7px;
+      }
+
+      .search input:focus {
+        outline: 0px;
+      }
+      .search button {
+        background: orange;
+        padding: 8px 20px;
+        border: 0px;
+        cursor: pointer;
+        border: 2px solid orange;
+      }
+      .search button:hover {
+        border:2px solid red;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body onload="myFunction(3)">
+    <!--For n no of squares  -->
+    <!-- <div class="search">
+        <input id="myText" name="boxes" type="number" placeholder="No of boxes" required />
+        <button onclick="myFunction(myText.value)" >Submit</button>
+    </div> -->
+      <div class="wrap">
+        <p id="demo"></p>
+      </div>
+
+      <script>
+      var array = [];
+      var array1 = [];
+      var array2 = [];
+      var clicks = 0;
+      var vlue = 0;
+      // onload function
+        function myFunction(value) {
+          if(value) {
+          vlue = value-0;
+            var mytable = "<table class='table' cellpadding=\"0\" cellspacing=\"0\"><tbody><tr>";
+            var values = value * value;
+
+              for (var i = 0; i < values; i++) {
+                  if (i % value == 0 ) {
+                      mytable += "</tr><tr>";
+                  }
+                  var z = i+1;
+
+                  mytable += "<td id='a" + i +"' onclick='functions("+i+")'>" + z + "</td>";
+                  array.push(i);
+              }
+
+              mytable += "</tr></tbody></table>";
+            document.getElementById("demo").innerHTML = mytable ;
+
+}
+        }
+        // for even and odd click
+        function functions(i) {
+          clicks += 1;
+          for (var j=0;j<array.length;j++) {
+               if (clicks % 2 === 0) {
+                 // p2 player
+            if(array[i] === j) {
+              var element = document.getElementById("a" + j);
+              element.classList.add("mystyle1");
+              array1.push(j);
+              console.log("this is the i and 1" + j, array1);
+              array1.sort(function(a, b){return a - b});
+              console.log("this is the i and 1" + j, array1);
+              if(array1.length > 2) {
+                var length = array1.length - 2;
+                for(var x=0;x<length;x++) {
+                  var a = 0; a = array1[x];
+                  var b = 0; b = array1[x+1];
+                  var c = 0; c = array1[x+2];
+                  var crossValue2 = ((vlue * 2) - (vlue -1));
+                  if((b === (a+vlue) && c === (b+vlue)) || (a === (b-1) && b === (c-1)) || (b === (a+crossValue2) && c === (b+crossValue2)) ) {
+                    alert("p2 is win")? "" : location.reload();
+                  }
+                }
+              }
+            }
+               }
+               // p1 player
+                else {
+             if(array[i] === j) {
+               var element = document.getElementById("a" + j);
+               element.classList.add("mystyle2");
+               array2.push(j);
+               console.log("this is the i and 2" + j, array2);
+               array2.sort(function(a, b){return a - b});
+               console.log("this is the i and 2" + j, array2);
+               if(array2.length > 2) {
+                 var length = array2.length -2;
+                 for(var y=0;y<length;y++) {
+                   var a = 0; a = array2[y];
+                   var b = 0; b = array2[y+1];
+                   var c = 0; c = array2[y+2];
+                   var crossValue = ((vlue * 2) - (vlue -1));
+                   console.log("array");
+                   if((b === (a+vlue) && c === (b+vlue)) || (a === (b-1) && b === (c-1)) || (b === (a+crossValue) && c === (b+crossValue)) ) {
+                     alert("p1 is win")? "" : location.reload();
+                   }
+                 }
+               }
+             }
+
+               }
+
+          }
+        }
+      </script>
+  </body>
+</html>
